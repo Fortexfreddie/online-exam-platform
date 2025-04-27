@@ -1,12 +1,21 @@
 import educator from '../assets/undraw_educator_6dgp (1) 1.png';
 import { useNavigate } from "react-router";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { useEffect } from 'react';
 
 const Examly = () => {
 
+    useEffect(() => {
+      AOS.init({ duration: 1000 });
+    }, []);
+
     const navigate = useNavigate();
+
+    
     return (  
         <div className="examly min-h-screen flex flex-col justify-between">
-        <nav className="examly__navbar flex items-center justify-between px-14 py-6 shadow-sm shadow-bottom">
+        <nav className="examly__navbar flex items-center justify-between px-14 py-6 shadow-sm shadow-bottom" data-aos="fade-down">
           <h1 className="examly__logo Georama text-2xl font-medium opacity-60">Examly.</h1>
           <div className="examly__buttons flex gap-5">
             <button className="examly__signup Geist border border-[#01A839] bg-[#01A839] text-white px-3 py-1 text-sm rounded-md hover:bg-white hover:text-[#01A839] hover:cursor-pointer" onClick={() => {
@@ -19,17 +28,17 @@ const Examly = () => {
         </nav>
   
         <div className="examly__content flex flex-col md:flex-row justify-between px-12 gap-8 py-16">
-          <div className="examly__decription pt-5 text-center md:text-start">
+          <div className="examly__decription pt-5 text-center md:text-start" data-aos="fade-right">
             <h1 className='examly__title Georama text-5xl font-semibold text-[#01A839]'>Examly.</h1>
             <h2 className='Georama text-5xl font-semibold mt-2'>Your Top Examination Platform</h2>
             <h3 className='Geist text-[#4D3A3A] text-lg mt-4'>The official certification Examinaton platform <br /> for Human-Computer interface.</h3>
-            <div className="examly__register">
+            <div className="examly__register mt-3">
               <button className="Geist border border-[#01A839] bg-[#01A839] text-white px-3 py-1 text-sm rounded-md mt-3 hover:bg-white hover:text-[#01A839] hover:cursor-pointer" onClick={() => {
                 navigate('/signup')
               }}>Register now</button>
             </div>
           </div>
-          <div className="examly__image md:flex justify-center">
+          <div className="examly__image md:flex justify-center" data-aos="fade-down" data-aos-delay="500">
             <img src={educator} alt="examly__image" className="w-full md:w-[80%]" />
           </div>
         </div>

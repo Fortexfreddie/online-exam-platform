@@ -3,13 +3,22 @@ import educator from '../assets/undraw_educator_6dgp (1) 1 (1).png';
 import { FaEnvelope, FaPhoneAlt } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { ClipLoader } from 'react-spinners';
+import { useState, useEffect } from "react";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 
 
 
 const Signup = () => {
 
+    useEffect(() => {
+          AOS.init({ duration: 1000 });
+    }, []);
+
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
 
     const {
         register,
@@ -21,6 +30,8 @@ const Signup = () => {
     const onSubmit = async (data) => {
     console.log(JSON.stringify(data));
 
+    setLoading(true);
+
     try {
         const response = await axios.post('https://examly-project-backend.onrender.com/api/auth/register', data);
 
@@ -28,25 +39,48 @@ const Signup = () => {
         navigate('/login');
     } catch (error) {
         if (error.response) {
-        console.error('Error Response:', error.response.data);
+            if (error.response.status === 500) {
+                alert('Email might already be registered. Please login or try another email.');
+                navigate('/login');
+            } else if (error.response.status === 400) {
+                alert('Invalid request. Please check your input.');
+            } else {
+                console.error('Error Response:', error.response.data);
+                alert(`Registration failed: ${error.response.data.message}`);
+            }
         } else if (error.request) {
-        console.error('No Response:', error.request);
+            console.error('No Response:', error.request);
+            alert('No response from server. Please try again later.');
         } else {
-        console.error('Error:', error.message);
-        }
+            console.error('Error:', error.message);
+            alert('An unexpected error occurred.');
+        } 
+    } finally {
+        setLoading(false);
     }
 };
+
+
+
+    if (loading) {
+        return (
+            <div className="flex flex-col justify-center items-center min-h-screen gap-2">
+                <ClipLoader color="#01A839" size={50} />
+                <p className='Georama text-[#01A839]'>Registering user</p>
+            </div>
+        );
+    }
 
       
     return ( 
         <div className="signup">
             <div className="signup__header text-center px-5 py-16">
-                <h1 className="Geist text-[#01A839] text-3xl font-bold uppercase tracking-wide">sign up for the examly</h1>
-                <h2 className="Geist text-[#01A839] text-sm font-light uppercase pt-3 tracking-wide">fill in the information below to access examly</h2>
+                <h1 className="Geist text-[#01A839] text-3xl font-bold uppercase tracking-wide" data-aos="fade-down">sign up for the examly</h1>
+                <h2 className="Geist text-[#01A839] text-sm font-light uppercase pt-3 tracking-wide" data-aos="fade-down" data-aos-delay="300">fill in the information below to access examly</h2>
             </div>
 
             <div className="signup__content md:grid grid-cols-2">
-                <div className="signup__form flex justify-center">
+                <div className="signup__form flex justify-center" data-aos="fade-down" data-aos-delay="500">
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="md:grid grid-cols-2 md:gap-16">
                             <div className="py-2">
@@ -97,7 +131,7 @@ const Signup = () => {
                         }}>continue</button>
                     </form>
                 </div>
-                <div className="signup__image flex justify-center my-10 md:my-0">
+                <div className="signup__image flex justify-center my-10 md:my-0" data-aos="fade-down" data-aos-delay="800">
                     <img src={educator} alt="signup__image" className="w-[80%] md:w-[60%]"/>
                 </div>
             </div>
