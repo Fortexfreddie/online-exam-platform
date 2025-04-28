@@ -108,9 +108,9 @@ const Login = () => {
                             </div>
 
                             <div className="flex items-center justify-center my-5 px-10">
-                                <div className="w-24 h-px bg-[#01A839] opacity-40"></div>
+                                <div className="w-20 md:w-24 h-px bg-[#01A839] opacity-40"></div>
                                 <span className="Geist px-4 text-xs md:text-sm text-[#01A839] opacity-40">Or register with</span>
-                                <div className="w-24 h-px bg-[#01A839] opacity-40"></div>
+                                <div className="w-20 md:w-24 h-px bg-[#01A839] opacity-40"></div>
                             </div>
 
                             <div className="login__methods py-2">
