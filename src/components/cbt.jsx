@@ -6,8 +6,8 @@ import check from '../assets/circle-check-big.png';
 import { useNavigate } from "react-router";
 import axios from 'axios';
 import { ClipLoader } from 'react-spinners';
-
-
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
   
 
@@ -23,8 +23,12 @@ const Cbt = () => {
     const [selectedOptions, setSelectedOptions] = useState({});
     const [hasCompletedExam, setHasCompletedExam] = useState(false);
     const [submitting, setSubmitting] = useState(false);
-    
 
+
+    
+    useEffect(() => {
+                AOS.init({ duration: 1000 });
+        }, [])
 
 
     useEffect(() => {
@@ -263,7 +267,7 @@ const Cbt = () => {
             {
                 showPopup && (
                     <div className="cbt__backdrop fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-                        <div className="cbt__popup flex bg-gradient-to-r from-white to-[#01A839] p-8 rounded-lg shadow-lg text-center items-center justify-center max-w-xl md:w-[80%] w-[90%]">
+                        <div className="cbt__popup flex bg-gradient-to-r from-white to-[#01A839] p-8 rounded-lg shadow-lg text-center items-center justify-center max-w-xl md:w-[80%] w-[90%]" data-aos="zoom-in">
                             <div className="cbt__image">
                                 <img src={check} alt="cbt__image" className="mx-auto w-full"/>
                             </div>
@@ -288,7 +292,7 @@ const Cbt = () => {
             {
                 hasCompletedExam && (
                     <div className="cbt__backdrop fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-                        <div className="cbt__popup flex bg-gradient-to-r from-white to-[#01A839] p-8 rounded-lg shadow-lg text-center items-center justify-center max-w-xl md:w-[80%] w-[90%]">
+                        <div className="cbt__popup flex bg-gradient-to-r from-white to-[#01A839] p-8 rounded-lg shadow-lg text-center items-center justify-center max-w-xl md:w-[80%] w-[90%]" data-aos="zoom-in">
                             <div className="cbt__image">
                                 <img src={check} alt="cbt__image" className="mx-auto w-full"/>
                             </div>
